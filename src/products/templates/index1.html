@@ -1,29 +1,17 @@
 <!DOCTYPE html>
-{% load listMax listMin listAverage listSorted listReversed stringReversed findCharOrString wordIsPalindrom %}
+{% load myfilter %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta htt-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HW</title>
+    <title>Document</title>
 </head>
 <body>
-    <h1>Voici mes differents filtres, je ne savais vraiment pas quoi créer</h1>
-    <style>
-        ul {list-style: decimal-leading-zero;}
-    </style>
-    <ul>
-        <li>liste: {{liste}}, max({{liste}}) = {{liste|listMax}}</li><br>
-        <li>liste: {{liste}}, min({{liste}}) = {{liste|listMin}}</li><br>
-        <li>liste: {{liste}}, sort({{liste}}) = {{liste|listSorted}}</li><br>
-        <li>liste: {{liste}}, reverse({{liste}}) = {{liste|listReversed}}</li><br>
-        <li>liste: {{liste}}, average({{liste}}) = {{liste|listAverage}}</li><br>
-        <li>string: "journal", "jour" in "journal" = {{"journal"|findCharOrString:"jour"}}</li><br>
-        <li>string: "journal", reverse("journal") = {{"journal"|stringReversed}}</li><br>
-        <li>liste: "otto", isPalindrom("otto") = {{"otto"|wordIsPalindrom}}</li><br>
-        
-    </ul>
-    
-  
+    {% for elt in list%}
+    <li>{{elt|adder:1000}}-----{{nom}}</li><br>
+    {% empty %}
+    <p>Pas d'element</p><br>
+    {% endfor%}
 </body>
 </html>
