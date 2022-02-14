@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    {% include 'navbar.html' %}
+{% endblock header %}
+
+{% block content %}
+    <h1>Produits de plus de 1000$:</h1><br>
+    <ul>
+    {%for product in products%}
+      
+           <li>{{product.name}} , price = {{product.price}}$</li><br>
+       
+    {% empty %}
+       <p>Products not found</p>
+    
+    {% endfor %}
+    </ul>
+{% endblock %}

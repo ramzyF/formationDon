@@ -1,8 +1,8 @@
 <nav>
     <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="projects.html">Projects</a></li>
-        <li><a href="{% url 'contact' %}">Contact</a></li>
-        <li><a href="{% url 'fil' %}">Mes filtres</a></li>
+        <li><a href="{% url 'home' %}">All products</a></li>
+        <li><a href="{% url 'home1' %}">products with price less than 1$</a></li>
+        <li><a href="{% url 'home2' %}">products with price between 1$ and 1000$</a></li>
+        <li><a href="{% url 'home3' %}">products with price more than 1000$</a></li>
     </ul>
 </nav>

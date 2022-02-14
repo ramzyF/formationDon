@@ -5,27 +5,21 @@ from django.shortcuts import render
 
 from django.http import HttpResponse
 
-def home(request):
-    name = "pharaon"
-    number = 55
-    mylist = [3, 35, 6, 7, 8]
-    context ={
-        "nom" : name,
-        "numero" : number,
-        'maList': mylist
-    }
-    return render(request, 'index.html', context)
+from products.models import Products
 
-def contact(request):
-    return render(request,'contact.html')
 
-def filtre(request):
-    name = "pharaon"
-    number = 55
-    mylist = [3, 35, 6, 7, 8]
-    context ={
-        "nom" : name,
-        "numero" : number,
-        'list': mylist
-    }
-    return render(request, 'index1.html', context)
+def allProduct(request):
+    product = Products.objects.all().order_by('price')
+    return render(request, 'index.html', {'products': product})
+
+def productLessOneD(request):
+    product = Products.objects.filter(price__lt = 1)
+    return render(request, 'home1.html', {'products': product})
+
+def productBetOne_Onethousand(request):
+    product = Products.objects.filter(price__gte = 1, price__lte = 1000)
+    return render(request, 'home2.html', {'products': product})
+
+def productMoreOneThousand(request):
+    product = Products.objects.filter(price__gt = 1000)
+    return render(request, 'home3.html', {'products': product})

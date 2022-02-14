@@ -19,7 +19,9 @@ from products.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', home, name = 'home'),
-    path('contact/', contact, name='contact'),
-    path('filtre/', filtre, name = 'fil'),
+    path('', allProduct, name = 'home'),
+    path('home1/', productLessOneD, name = 'home1'),
+    path('home2/', productBetOne_Onethousand, name = 'home2'),
+    path('home3/', productMoreOneThousand, name = 'home3'),
+
 ]

@@ -14,6 +14,8 @@ class Products(models.Model):
     
     def __str__(self):
         return self.name
+    
+    
         
 """Chaque fois que je modifie ma table ou ma class du model
 voici les deux commandes a inserer
