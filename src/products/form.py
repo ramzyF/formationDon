@@ -48,7 +48,7 @@ class StudentForm(forms.Form):
         if age < 18:
             raise forms.ValidationError("Vous êtes mineur(-18 ans), ce site n'est \npas fait pour vous. Sinon, \nchanger votre date de naissance.")
         if age > 50:
-            raise forms.ValidationError('Vous êtes trop agé pour ce site(+50 ans')
+            raise forms.ValidationError('Vous êtes trop agé pour ce site(+50 ans)')
         else:
             return birthD 
     
