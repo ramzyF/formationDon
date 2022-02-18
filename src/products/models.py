@@ -1,4 +1,13 @@
+from http.client import LENGTH_REQUIRED
+from unicodedata import name
 from django.db import models
+
+"""Chaque fois que je modifie ma table ou ma class du model
+voici les deux commandes a inserer
+1- python3 manage.py  makemigrations
+2- python3 manage.py migrate"""
+
+#la classe meta travaille sur les données de la grande class products
 
 # Create your models here.
 class Products(models.Model):
@@ -14,10 +23,13 @@ class Products(models.Model):
     
     def __str__(self):
         return self.name
-        
-"""Chaque fois que je modifie ma table ou ma class du model
-voici les deux commandes a inserer
-1- python manage.py  makemigrations
-2- python manage.py migrate"""
 
-#la classe meta travaille sur les données de la grande class products
+
+class Student(models.Model):
+    mat = models.CharField(primary_key= True, max_length= 10)
+    name = models.CharField(max_length= 100)
+    surname = models.CharField(max_length= 100)
+    birthD = models.DateField()
+    
+    def __str__(self):
+        return self.mat

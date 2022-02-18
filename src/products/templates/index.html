@@ -1,10 +1,14 @@
 {% extends 'base.html'%}
 
 
-{% block header %}
-    {% include 'navbar.html' %}
-{% endblock header %}
-
 {% block content %}
-    Homework
+    <h1 style="color: yellow;">{{message}}</h1>
+    <br><br>
+    <center>
+        <form action="" method="post">
+            {% csrf_token%}
+            {{ form.as_p }}
+            <button type="submit">Enregistrer</button>
+        </form>
+    </center>
 {% endblock %}
