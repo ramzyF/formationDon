@@ -10,12 +10,13 @@ class StudentForm(forms.Form):
         attrs={
             'placeholder':'Entrer matricule',
             'maxlength':'10',
+            'value':'CMR'
             
         }
     ))
     name = forms.CharField(label='Nom', widget=forms.TextInput(
         attrs={
-            'placeholder':'Entrer votre nom'
+            'placeholder':'Entrer votre nom',
             
         }
     ))
