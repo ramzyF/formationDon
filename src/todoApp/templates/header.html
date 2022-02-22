@@ -1,0 +1,12 @@
+
+<style>
+    .home-container{
+        display: grid;
+        grid-template-columns: 1fr 3fr;
+    }
+    #logo {
+        font-size: 60px;
+    }
+</style>
+<p id="logo"><a href="{% url 'home' %}">TodoApp</a><br></p><br>
+<a href="{% url 'createTask' %}">Créer une Tâche</a><hr>

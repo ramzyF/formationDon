@@ -1,0 +1,10 @@
+
+<center>
+    <h3>Création de la tâche</h3><br>
+    <form action="" method="POST">
+    {% csrf_token %}
+    {{form}}
+    <input type="submit" name="create Task" value="Créer"><br>
+    <a href="{% url 'home' %}">Annuler</a><br><br>
+</form>
+</center>

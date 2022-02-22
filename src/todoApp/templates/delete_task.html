@@ -1,0 +1,11 @@
+<center>
+    <h3>Suppression de la tâche</h3><br><br><br>
+    <p>Voulez-vous vraiment supprimer la tâche "{{item}}"?</p>
+    <a href="{% url 'home' %}">Annuler</a><br><br>
+    
+    <form action="" method="POST">
+    {% csrf_token %}
+    {{form}}
+    <input type="submit" name="create Task" value="confirmer">
+</form>
+</center>

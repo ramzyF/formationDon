@@ -1,0 +1,27 @@
+
+{% include 'header.html' %}
+<div class="home-container">
+    <div>
+        {% include 'navbar.html' %}
+    </div> 
+    <div>
+        {% if tasks %}
+            <h4>Toutes les tâches</h4><br>
+            {% for task in tasks %}
+                {% if task.completed == True %}
+                    <li><strike>{{task}}</strike>(tâche terminée)</li>
+                {% else %}
+                    <li>{{task}}</li>
+                {% endif %}
+                <p>créée il y a {{task.created|timesince}}</p>
+                <a href="{% url 'updateTask' task.id %}">Modifier</a>
+                <a href="{% url 'deleteTask' task.id %}">Supprimer</a>
+                <hr>
+            {%endfor%}
+        {%else%}
+
+            <p>AUCUNE TÂCHE DISPONIBLE</p>
+
+        {%endif%}
+    </div>
+</div>
