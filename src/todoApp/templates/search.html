@@ -1,0 +1,36 @@
+{% include 'header.html' %}
+{% load isNotString %}
+<div class="home-container">
+    <div>
+         {% include 'navbar.html' %}
+    </div>
+    <div>
+        <form action="" method="POST">
+            {% csrf_token %}
+            <label for="dateInput">Enter une date</label>
+            <input type="date" name="dateInput"><br><br>
+            <input type="submit" value="Rechercher les tâches">
+            <a href="{% url 'home' %}">Annuler</a>
+
+        </form>
+        {% if tasks %}
+            <h4>TÂCHES POUR LA JOURNÉE DU {{myDate|date:'d-m-Y'}}:</h4><br>
+            {% for task in tasks %}
+                {% if task.completed == True %}
+                    <li><strike>{{task}}</strike>(tâche terminée)</li>
+                {% else %}
+                    <li>{{task}}</li>
+                {% endif %}
+                <p>créée il y a {{task.created|timesince}}</p>
+                {% include 'functionMenu.html' %}
+                <hr>
+            {%endfor%}
+        {%else%}
+            {% if myDate|isNotString %}
+              <!-- myDate can be a string if the date input is empty-->
+                <p>AUCUNE TÂCHE POUR LA JOURNÉE DU {{myDate|date:'d-m-Y'}}</p>
+            {% endif %}
+
+        {%endif%}
+    </div>
+</div>

@@ -26,4 +26,6 @@ urlpatterns = [
     path('delete-task/<str:pk>/', deleteTask, name="deleteTask"),
     path('completed-task/', completedTask, name="completedTask"),
     path('incompleted-task/', incompletedTask, name="incompletedTask"),
+    path('search/', search, name="searchTask"),
+    path('iscompleted/<str:pk>/', isCompleted, name="isCompleted"),
 ]

@@ -6,17 +6,22 @@
     </div>
     <div>
         {% if tasks %}
-            <h4>Tâches non terminées</h4><br>
+            <h4>TÂCHES INACHEVÉES</h4><br>
             {% for task in tasks %}
                 <li>{{task}}</li>
                 <p>créée il y a {{task.created|timesince}}</p>
-                <a href="{% url 'updateTask' task.id %}">Modifier</a>
-                <a href="{% url 'deleteTask' task.id %}">Supprimer</a>
+                {% include 'functionMenu.html' %}
+                <form action="{% url 'isCompleted' task.id %}" method="POST">
+                    {% csrf_token %}
+                    <label for="completed">Tâche terminée?</label>
+                    <input type="checkbox" name="completed" >
+                    <input type="submit" value="Valider">
+                </form>             
                 <hr>
             {%endfor%}
         {%else%}
 
-            <p>AUCUNE TÂCHE POUR LE MOMENT</p>
+            <p>AUCUNE TÂCHE ENCOURS POUR LE MOMENT</p>
 
         {%endif%}
     </div>

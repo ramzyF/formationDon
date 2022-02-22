@@ -6,16 +6,22 @@
     </div> 
     <div>
         {% if tasks %}
-            <h4>Toutes les tâches</h4><br>
+            <h4>TOUTES LES TÂCHES</h4><br>
             {% for task in tasks %}
                 {% if task.completed == True %}
                     <li><strike>{{task}}</strike>(tâche terminée)</li>
+                    {% include 'functionMenu.html' %}
                 {% else %}
                     <li>{{task}}</li>
+                    <form action="{% url 'isCompleted' task.id %}" method="POST">
+                        {% csrf_token %}
+                        <label for="completed">Tâche terminée?</label>
+                        <input type="checkbox" name="completed" >
+                        <input type="submit" value="Valider">
+                        </form>
+                        {% include 'functionMenu.html' %}
                 {% endif %}
                 <p>créée il y a {{task.created|timesince}}</p>
-                <a href="{% url 'updateTask' task.id %}">Modifier</a>
-                <a href="{% url 'deleteTask' task.id %}">Supprimer</a>
                 <hr>
             {%endfor%}
         {%else%}

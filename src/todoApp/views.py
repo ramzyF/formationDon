@@ -1,9 +1,8 @@
-from multiprocessing import context
+from asyncio import tasks
 from django.shortcuts import render, redirect
-from django.http import HttpResponseRedirect
 from .createForm import *
 from .updateForm import *
-
+from datetime import datetime
 
 # Create your views here.
 def home(request):
@@ -17,12 +16,6 @@ def home(request):
     return render(request, 'index.html', context)
 
 def createTask(request):
-    """ form = TaskForm()
-    if request.method == 'POST':
-        form = TaskForm(request.POST)
-        if form.is_valid():
-            form.save()
-        return redirect('/') """
     form = TaskForm()
     if request.method == "POST":
         form = TaskForm(request.POST)
@@ -52,12 +45,12 @@ def updateTask(request, pk):
 
 
 def deleteTask(request, pk):
-    item = Task.objects.get(id=pk)
+    task = Task.objects.get(id=pk)
     if request.method == "POST":
-        item.delete()
+        task.delete()
         return redirect('home')
     context = {
-        'item': item,
+        'task': task,
     }
     return render(request, 'delete_task.html', context)
 
@@ -74,4 +67,34 @@ def incompletedTask(request):
         'tasks':tasks,
     }
     return render(request,'incompleted_task.html', context)
+
+def compareDay(date):
+    #tasks = Task.objects.filter(created.strftime("%Y-%m-%d") = )
+    pass
+
+def search(request):
+    tasks = ''
+    dateParam =''
+    if request.POST:
+        dateParam = request.POST.get('dateInput')#with a string like 2022-02-22
+    #in the next line with convert dateParam to a datetime object
+        if dateParam:
+            dateParam = datetime(int(dateParam[:4]), int(dateParam[5:7]), int(dateParam[8:]))
+            tasks = Task.objects.filter(created__year = dateParam.year, 
+                                              created__month = dateParam.month,
+                                              created__day = dateParam.day)
+    #print("ramses=",len(dateParam), 'type=', type(dateParam))
+    return render(request,'search.html', context={'tasks':tasks, 'myDate': dateParam})
     
+def isCompleted(request, pk):
+    #this view will help to mark a task as completed or note
+    task = ''
+    if request.method == "POST":
+        completed = request.POST.get('completed')
+        if completed:
+            task = Task.objects.filter(id=pk).update(completed = True)
+        return redirect('home')
+    context = {
+        'task': task,
+    }
+    return redirect('home')
