@@ -1,4 +1,6 @@
-{% include 'header.html' %}
+{% extends 'base.html'%}
+{% block content%}
+
 {% load isNotString %}
 <div class="home-container">
     <div>
@@ -34,3 +36,4 @@
         {%endif%}
     </div>
 </div>
+{% endblock %}

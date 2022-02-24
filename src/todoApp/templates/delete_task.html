@@ -1,3 +1,6 @@
+{% extends 'base.html'%}
+{% block content%}
+
 <center>
     <h3>Suppression de la tâche</h3><br><br><br>
     <p>Voulez-vous vraiment supprimer la tâche "{{task}}"?</p>
@@ -8,3 +11,4 @@
     </form>
     <a href="{% url 'home' %}">Annuler</a><br><br>
 </center>
+{% endblock %}
