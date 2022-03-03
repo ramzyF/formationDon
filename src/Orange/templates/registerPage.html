@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static '/css/style_createAgent.css' %}">
+<div class="main-contain">
+  <div class="center">
+    <h1>Nouvel Agent</h1>
+    <form action="" method="POST">
+      {% csrf_token %}
+      <div class="text-field">
+        {{form.lastName}}
+        <span></span> 
+        <label >Nom</label>
+      </div>
+      <div class="text-field">
+        {{form.firstName}}
+        <span></span>  
+        <label >Prénom</label>
+      </div>
+      <div class="text-field">
+        {{form.age}}
+        <span></span> 
+        <label>Age</label>
+      </div>
+      <div class="text-field">
+        {{form.country}}
+        <span></span>
+        <label>Pays</label>
+        
+      </div>
+      <div class="text-field">
+        {{form.numCni}} 
+        <span></span> 
+        <label>Numéro de CNI</label>
+      </div>
+      <div class="text-field">
+        {{form.username}} 
+        <span></span> 
+        <label>Nom d'utilisateur</label>
+      </div>
+      <div class="text-field">
+        {{form.password}} 
+        <span></span> 
+        <label>Mot de passe</label>
+      </div>
+      <div class="text-field">
+        <!-- <input type="password" name="confirmPass" placeholder="Entrer de nouveau votre mot de passe">  -->
+        {{form.password2}}
+        <span></span> 
+        <label>Confirmer mot de passe</label>
+      </div>
+      <input type="submit" value="S'enregistrer">
+      <div class="login-link">
+        Déjà enregistrer? <a href="{% url 'signin' %}">Connectez-vous</a>
+      </div>
+    </form>
+  </div>
+  {% if messages %}
+    <div class="message-error">
+      {% for error in messages %}
+        <li>{{error}}</li>
+      {% endfor %}
+    </div>
+  {% endif%}
+    
+</div>
+
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static '/css/style_createAgent.css' %}">
+<div class="main-contain">
+  <div class="center">
+    <h1>Connectez-vous</h1>
+    <form action="" method="POST">
+      {% csrf_token %}
+      <div class="text-field">
+        <input type="text" placeholder="Nom d'utilisateur" required name="username"> 
+        <span></span> 
+        <label >Nom d'utilisateur</label>
+      </div>
+      <div class="text-field">
+        <input type="password" placeholder="Mot de passe" required name="password"> 
+        <span></span>  
+        <label >Mot de passe</label>
+      </div>
+      <input type="submit" value="Se connecter">
+      <div class="login-link">
+        Pas encore enregistrer? <a href="{% url 'signup' %}">S'enregistrer</a>
+      </div>
+    </form>
+  </div>
+  {% if messages %}
+    <div class="message-error">
+      {% for error in messages %}
+        <li>{{error}}</li>
+      {% endfor %}
+    </div>
+  {% endif%}
+    
+</div>
+
+{% endblock %}
