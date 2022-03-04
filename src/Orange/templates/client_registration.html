@@ -1,4 +1,6 @@
 {% load static %}
+{% extends 'base.html' %}
+{% block content %}
 <link rel="stylesheet" href="{% static '/css/addclient.css' %}">
 <div class="center">
 <form method="POST" action="">
@@ -37,4 +39,4 @@
 </div>
 {% endif %}
 
-
+{% endblock %}

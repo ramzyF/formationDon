@@ -1,17 +1,24 @@
-<!-- {% if request.user.is_authenticated %}
+ {% extends 'base.html'%}
 
-<p>Hello {{request.user.agent.num_agent}}</p>
-<a href="{% url 'signout' %}">Se deconnecter</a>
-{% else %}
 
-<a href="{% url 'signin' %}">Se connecter</a>
-
-{% endif %} -->
-
-{% if request.user.is_authenticated %}
-{% include "navbar.html" %}
-<a href="{% url 'registerclient' %}">Ajouter un client</a>
-<p>Hello {{request.user}}</p>
-{% else %}
-<a href="{% url 'signin' %}">Se connecter</a>
-{% endif %}
+ {% block content %}
+ {% if not request.user.is_authenticated %}
+ {% include "header.html" %}
+ {% else %}
+ <h1><a href="{% url 'home' %}">Agent Orange</a></h1><br>
+  <p>Mon numéro d'agent: {{request.user.agent.num_agent}}</p><hr>
+ {% endif %}
+ 
+<div class="home-container">
+  <div>
+    {% if request.user.is_authenticated %}
+    <a href="{% url 'signout' %}">Se deconnecter</a><br><br>
+    <a href="{% url 'registerclient' %}">Ajouter un client</a>
+    <p>Hello {{request.user}}</p>
+    {% else %}
+    <a href="{% url 'signin' %}">Se connecter</a>
+    {% endif %}
+  </div>
+</div>
+</div>
+{% endblock %}
