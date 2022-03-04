@@ -1,15 +1,26 @@
 {% extends 'base.html' %}
 
 {% block content %}
+{% if not request.user.is_authenticated %}
 {% include "header.html" %}
+{% else %}
+{% include "header2.html" %}
+{% endif %}
 <div class="home-container">
   <div>
-        {% include 'navbar.html' %}
+    {% include "navbar.html" %}
   </div>
+
    <div>
     {% if request.user.is_authenticated %}
-      <p>Bienvenue {{request.user.agent.name}}</p><br>
-      <p>Mon numéro d'agent: {{request.user.agent.num_agent}}</p>
+    {% if clients %}
+    <h4>Liste des clients que vous avez enregistré:</h4><br>
+      {% for client in clients %}
+        <li>{{client}}</li><br>
+      {% endfor %}
+    {% else %}
+    <h4>Vous n'avez pas encore enregistré de client</h4><br>
+     {% endif%}
     {% endif %}
   </div>
 </div>                            

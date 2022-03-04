@@ -5,8 +5,7 @@
  {% if not request.user.is_authenticated %}
  {% include "header.html" %}
  {% else %}
- <h1><a href="{% url 'home' %}">Agent Orange</a></h1><br>
-  <p>Mon numéro d'agent: {{request.user.agent.num_agent}}</p><hr>
+ {% include "header2.html" %}
  {% endif %}
  
 <div class="home-container">
@@ -14,11 +13,22 @@
     {% if request.user.is_authenticated %}
     <a href="{% url 'signout' %}">Se deconnecter</a><br><br>
     <a href="{% url 'registerclient' %}">Ajouter un client</a>
-    <p>Hello {{request.user}}</p>
     {% else %}
     <a href="{% url 'signin' %}">Se connecter</a>
     {% endif %}
   </div>
+  <div>
+     {% if request.user.is_authenticated %}
+        {% if clients %}
+          <h4>Liste des clients que vous avez enregistré:</h4><br>
+          {% for client in clients %}
+            <li>{{client}}</li><br>
+          {% endfor %}
+        {% else %}
+          <h4>Vous n'avez pas encore enregistré de client</h4><br>
+        {% endif%}
+    {% endif %}
+  </div>
 </div>
-</div>
+
 {% endblock %}

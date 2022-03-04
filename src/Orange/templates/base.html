@@ -9,7 +9,28 @@
   <title>Agent Orange</title>
 </head>
 <body>
+  <style>
+    .homecontainer{
+        display: grid;
+        grid-template-columns: 1fr 3fr;
+    }
+    #logo {
+        font-size: 60px;
+        color: orange;
+      }
 
+    #logo a{
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: color .5s;
+    }
+    #logo a:visited, #logo a:link{
+      color: inherit;
+    }
+    #logo a:hover{
+      color: rgb(163, 118, 33)
+    }
+</style>
   {% block content %}
 
 

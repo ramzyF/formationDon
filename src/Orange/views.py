@@ -55,7 +55,14 @@ def genererIdAgent():
 
 # Create your views here.
 def home(request):
-  return render(request, 'index.html')
+  context = {}
+  if request.user is not None and request.user.is_active:
+    agent = request.user
+    clients = Client.objects.filter(num_agent=agent)
+    context = {
+      'clients': clients
+    }
+  return render(request, 'index.html', context)
   
 
 def signup(request):
@@ -102,7 +109,14 @@ def signout(request):
 
 
 def dashboard(request):
-  return render(request, 'dashboard.html')
+  context = {}
+  if request.user is not None and request.user.is_active:
+    agent = request.user
+    clients = Client.objects.filter(num_agent=agent)
+    context = {
+      'clients': clients
+    }
+  return render(request, 'dashboard.html', context)
 
 @login_required
 def registerClient(request, pk=None):
