@@ -1,2 +1,11 @@
-<h2><a href="{% url 'signup' %}">S'enregistrer</a></h2>
-<h2><a href="{% url 'signin' %}">Se connectez</a></h2>
+
+<h4><a href="{% url 'dashboard' %}">Tableau de board</a></h4>
+{% if request.user.is_authenticated %}
+
+<h4><a href="{% url 'signout' %}">Se deconnecter</a></h4>
+{% else %}
+
+<h4><a href="{% url 'signup' %}">S'enregistrer</a></h4>
+<h4><a href="{% url 'signin' %}">Se connecter</a></h4>
+
+{% endif %}

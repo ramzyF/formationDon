@@ -15,10 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from products.views import *
+from Orange.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name = 'home'),
+    path('signup', signup, name = 'signup'),
+    path('signin', signin, name = 'signin'),
+    path('signout', signout, name = 'signout'),
+    path('dashboard/', dashboard, name = 'dashboard'),
+    path('dashboard/addclient', registerClient, name = 'registerclient'),
     
 ]

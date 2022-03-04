@@ -2,6 +2,10 @@
 
 {% block content %}
 <h1><a href="{% url 'home' %}">Agent Orange</a></h1><br><br>
-  {% include "navbar.html" %}
+{% include "navbar.html" %}
+  {% if request.user.is_authenticated %}
+        <p>Bienvenue {{request.user.agent.name}}</p><br>
+        <p>Votre numéro d'agent est {{request.user.agent.num_agent}}</p>
+  {% endif %}                            
 {% endblock %}
 

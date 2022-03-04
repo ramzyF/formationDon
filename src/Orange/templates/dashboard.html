@@ -1,0 +1,17 @@
+<!-- {% if request.user.is_authenticated %}
+
+<p>Hello {{request.user.agent.num_agent}}</p>
+<a href="{% url 'signout' %}">Se deconnecter</a>
+{% else %}
+
+<a href="{% url 'signin' %}">Se connecter</a>
+
+{% endif %} -->
+
+{% if request.user.is_authenticated %}
+{% include "navbar.html" %}
+<a href="{% url 'registerclient' %}">Ajouter un client</a>
+<p>Hello {{request.user}}</p>
+{% else %}
+<a href="{% url 'signin' %}">Se connecter</a>
+{% endif %}
