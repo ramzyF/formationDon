@@ -2,7 +2,7 @@
 <h4><a href="{% url 'dashboard' %}">Tableau de board</a></h4>
 {% if request.user.is_authenticated %}
 
-<h4><a href="{% url 'signout' %}">Se deconnecter</a></h4>
+<h4><a href="{% url 'signout' %}">Deconnexion</a></h4>
 {% else %}
 
 <h4><a href="{% url 'signup' %}">S'enregistrer</a></h4>

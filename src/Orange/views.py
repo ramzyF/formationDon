@@ -1,33 +1,52 @@
-from atexit import register
-from email import message
-from multiprocessing import context
+
+from telnetlib import OUTMRK
 from django.shortcuts import render, redirect
 from .models import *
 from .forms import *
 from django.contrib.auth import authenticate, login, logout
-from django.contrib import messages
 from random import randint, shuffle
 from django.contrib.auth.decorators import login_required
-""" 
-def checkData(userForm, agentForm):
-    messages={}
-    #check the age:
-    if int(agentForm['age'].value()) <= 17:
-        messages[1] = 'Votre devez avoir au moins 18 ans!'
-    if len(agentForm['age'].value()) < 1 or len(agentForm['age'].value()) >= 3:
-        messages[2] = 'Veuillez entrer un âge valide!'
-    if (agentForm['country'].value()) != 'cameroun':
-        messages[3]= 'Le pays doit être le Cameroun!'
-    if int(agentForm['num_cni'].value()) <= 0:
-        messages[4] = 'Le N° de CNI doit être strictement positif!'
-    if len(agentForm['num_cni'].value()) != 5:
-        messages[5] = 'Le N° de CNI doit contenir 5 chiffres!'
-    if User.objects.filter(username=userForm['username']):
-        messages[6] = 'Ce nom d\'utilisateur est deja pris'
-    ''' else:
-        if userForm['password2'].value() != userForm['password1'].value():
-            messages[7] = 'Les mots de passe sont differents' '''
-    return messages """
+from django.db.models import Count
+
+def formatRank(n):
+  if n == 1:
+    return "1er"
+  else:
+    return str(n)+'e'
+  
+def getRank(user, users):
+  i = 0
+  while i <= len(users):
+    i += 1
+    if user.id == users[i-1]:
+      return(formatRank(i)) 
+    
+def sortList(T):
+  for i in range(len(T)-1):
+    for j in range (i, len(T)):
+      if T[i][0] < T[j][0]:
+        tmp = T[i]
+        T[i] = T[j]
+        T[j] = tmp
+  return T
+  
+def sort_dict(querySet):
+  tupl = list()
+  keys = []
+  for i in querySet:
+    tupl.append((i['total'],i['num_agent']))
+  #trions le la liste de tuples(tri bulle): tupl=[(clientTotal, idAgent)]
+  return [val[1] for val in sortList(tupl)]
+
+def ho(request):
+  var = Client.objects.values('num_agent',).annotate(total=Count('id'),).order_by()
+  print(sort_dict(var))
+  context = {
+    
+  }
+  return render(request, 'home.html',context)
+
+
 def genererMainPart():
     i = 7
     tmp =''
@@ -44,7 +63,6 @@ def genererMainPart():
 def genererIdAgent():
     listeAgent = Agent.objects.all().values('num_agent')
     idAgent =''
-    print(listeAgent)
     while idAgent == '':
         idAgent += genererMainPart()
         if idAgent in listeAgent:
@@ -77,13 +95,16 @@ def signup(request):
       agent.user = user
       agent.num_agent = genererIdAgent()
       agent.save()
+      form = CreateUserForm()
+      agent_form = AgentForm()
+      
       return redirect('signin')
       
     
   context = {
       'form': form, 
       'agent_form': agent_form,
-      'messages': messages
+      
   }
   
   return render(request, 'register_page.html',context)
@@ -110,11 +131,20 @@ def signout(request):
 
 def dashboard(request):
   context = {}
+  rank = ''
+  gain = 0
   if request.user is not None and request.user.is_active:
     agent = request.user
     clients = Client.objects.filter(num_agent=agent)
+    if clients:
+      #cherchons le rang
+      users = sort_dict(Client.objects.values('num_agent',).annotate(total=Count('id')))
+      rank = getRank(agent, users)
+      gain = agent.agent.gain
     context = {
-      'clients': clients
+      'clients': clients,
+      'rank':rank,
+      'gain': gain
     }
   return render(request, 'dashboard.html', context)
 
@@ -126,6 +156,11 @@ def registerClient(request, pk=None):
     if form.is_valid():
       client = form.save(commit=False)
       client.num_agent = User.objects.get(pk=request.user.id)
+      #gerons le gain de 100fr
+      agent = client.num_agent.agent
+      agent.gain += 100
+      agent.save()
+      #fin
       client.save()
       form = ClientForm()
       return redirect ('home')

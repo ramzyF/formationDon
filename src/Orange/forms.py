@@ -15,12 +15,15 @@ CHOICES_COUNTRY =[
 CHOICES_CITY =[
   ('', ''),
   ('mbouda', 'Mbouda'),
-  ('yaounde', 'Youndé'),
+  ('yaounde', 'Yaoundé'),
   ('Limbé', 'Limbé'),
   ('bafia', 'Bafia'),
 ]
 
 class CreateUserForm(UserCreationForm):
+  def __init__(self, *args, **kwargs):
+    kwargs.setdefault('label_suffix', '')
+    super(CreateUserForm, self).__init__(*args, **kwargs)
   class meta:
     model = User
     fields = ['username', 'password1', 'password2']
@@ -32,8 +35,12 @@ class CreateUserForm(UserCreationForm):
     
     
 class AgentForm(forms.ModelForm):
+  def __init__(self, *args, **kwargs):
+    kwargs.setdefault('label_suffix', '')
+    super(AgentForm, self).__init__(*args, **kwargs)
+        
   name = forms.CharField(label='Nom', widget=forms.TextInput())
-  age = forms.CharField(label='Age',widget=forms.TextInput(
+  age = forms.CharField(label='Age', widget=forms.TextInput(
     attrs={
       'maxlength':2,
     }
@@ -49,16 +56,16 @@ class AgentForm(forms.ModelForm):
   class Meta:
     model = Agent
     fields = ('name', 'age', 'country','num_cni')
+    
    
   def clean_age(self):
     age = self.cleaned_data.get('age')
-    try:
-      age = int(self.cleaned_data.get('age'))
-      if int(age) <= 17:
-        raise forms.ValidationError('Vous devez avoir au moins 18 ans!')
-      return age
-    except ValueError:
-      forms.ValidationError("votre age n'est pas un chiffre")
+    if not str(age).isdecimal():
+      raise forms.ValidationError("Veuillez entrez un nombre entier pour l'âge")
+
+    if int(age) <= 17:
+      raise forms.ValidationError('Vous devez avoir au moins 18 ans!')
+    return age
     
 
   def clean_country(self):
@@ -71,16 +78,13 @@ class AgentForm(forms.ModelForm):
 
   def clean_num_cni(self):
     num_cni = self.cleaned_data.get('num_cni')
-    try:
-      num_cni = int(self.cleaned_data.get('num_cni'))
-      if isinstance(int(num_cni), int):
-        if len(self.cleaned_data.get('num_cni')) != 5:
-          raise forms.ValidationError('Le numéro de CNI n\'est que composer de 5 chiffres')
-        if Agent.objects.filter(num_cni=int(num_cni)):
-          raise forms.ValidationError('Ce numéro de CNI appartient déjà à un agent')
-        return num_cni
-    except ValueError:
-      forms.ValidationError("Veuillez entrez 5 chiffres correspondant a votre N° de CNI")
+    if not str(num_cni).isdecimal():
+      raise forms.ValidationError("Veuillez entrer 5 chiffres correspondant au N° de CNI")
+    if len(self.cleaned_data.get('num_cni')) != 5:
+      raise forms.ValidationError('Le numéro de CNI n\'est que composer de 5 chiffres')
+    if Agent.objects.filter(num_cni=int(num_cni)):
+      raise forms.ValidationError('Ce numéro de CNI appartient déjà à un agent')
+    return num_cni
   
     
 class ClientForm(forms.ModelForm):
@@ -94,18 +98,17 @@ class ClientForm(forms.ModelForm):
   class Meta:
     model = Client
     fields = ('name',  'num_cni', 'city')
-   
+    help_texts = {
+            'num_cni': 'Le numéro de CNI est une suite de 5 chiffres',
+        }
 
   def clean_num_cni(self):
     num_cni = self.cleaned_data.get('num_cni')
-    try:
-      num_cni = int(self.cleaned_data.get('num_cni'))
-      if isinstance(int(num_cni), int):
-        if len(self.cleaned_data.get('num_cni')) != 5:
-          raise forms.ValidationError('Le numéro de CNI n\'est que composer de 5 chiffres')
-        if Client.objects.filter(num_cni=int(num_cni)):
-          raise forms.ValidationError('Ce numéro de CNI appartient déjà à un client')
-        return num_cni
-    except ValueError:
-      forms.ValidationError("Veuillez entrez 5 chiffres correspondant a votre N° de CNI")
+    if not str(num_cni).isdecimal():
+      raise forms.ValidationError("Veuillez entrer 5 chiffres correspondant au N° de CNI")
+    if len(self.cleaned_data.get('num_cni')) != 5:
+      raise forms.ValidationError('Le numéro de CNI n\'est que composer de 5 chiffres')
+    if Client.objects.filter(num_cni=int(num_cni)):
+      raise forms.ValidationError('Ce numéro de CNI appartient déjà à un agent')
+    return num_cni
   

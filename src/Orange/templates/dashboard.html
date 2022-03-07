@@ -1,34 +1,43 @@
  {% extends 'base.html'%}
-
+ {% load static %}
 
  {% block content %}
+ <link rel="stylesheet" href="{% static '/css/dashb.css' %}">
  {% if not request.user.is_authenticated %}
  {% include "header.html" %}
  {% else %}
  {% include "header2.html" %}
  {% endif %}
  
-<div class="home-container">
-  <div>
+
+  <div class="nav-bar">
     {% if request.user.is_authenticated %}
-    <a href="{% url 'signout' %}">Se deconnecter</a><br><br>
-    <a href="{% url 'registerclient' %}">Ajouter un client</a>
+     <a href="{% url 'home' %}">Accueil</a><br><br>
+     <a href="{% url 'registerclient' %}">Ajouter un client</a><br><br>
+     {% if clients  and rank %}
+     <span class ="rank-gain">Rang: {{rank}} </span><br><br>
+     <span class ="rank-gain">Gain: {{gain}} FCFA </span><br><br>
+     {% endif %}
+     <a href="{% url 'signout' %}">Déconnexion</a><br><br>
     {% else %}
     <a href="{% url 'signin' %}">Se connecter</a>
     {% endif %}
-  </div>
-  <div>
-     {% if request.user.is_authenticated %}
-        {% if clients %}
-          <h4>Liste des clients que vous avez enregistré:</h4><br>
-          {% for client in clients %}
-            <li>{{client}}</li><br>
-          {% endfor %}
-        {% else %}
-          <h4>Vous n'avez pas encore enregistré de client</h4><br>
-        {% endif%}
-    {% endif %}
-  </div>
+  
 </div>
+  {% if request.user.is_authenticated %}
+  <div class="home-container">
+
+   <div>
+      {% if clients %}
+        <h4>Liste des clients que vous avez enregistré:</h4><br>
+        {% for client in clients %}
+          <li>{{client}}</li><br>
+        {% endfor %}
+      {% else %}
+        <h4>Vous n'avez pas encore enregistré de client</h4><br>
+      {% endif%}
+    </div>                            
+  </div>
+    {% endif %}
 
 {% endblock %}

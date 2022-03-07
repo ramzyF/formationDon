@@ -1,27 +1,16 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
-{% if not request.user.is_authenticated %}
-{% include "header.html" %}
-{% else %}
-{% include "header2.html" %}
-{% endif %}
-<div class="home-container">
-  <div>
-    {% include "navbar.html" %}
-  </div>
-
-   <div>
-    {% if request.user.is_authenticated %}
-    {% if clients %}
-    <h4>Liste des clients que vous avez enregistré:</h4><br>
-      {% for client in clients %}
-        <li>{{client}}</li><br>
-      {% endfor %}
+<link rel="stylesheet" href="{% static '/css/dashb.css' %}">
+  <div class="header">
+    {% if not request.user.is_authenticated %}
+      {% include "header.html" %}
     {% else %}
-    <h4>Vous n'avez pas encore enregistré de client</h4><br>
-     {% endif%}
+      {% include "header2.html" %}
     {% endif %}
-  </div>
-</div>                            
+</div>
+<div class="nav-bar">
+  {% include "navbar.html" %}
+</div>
+
 {% endblock %}

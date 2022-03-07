@@ -25,5 +25,6 @@ urlpatterns = [
     path('signout', signout, name = 'signout'),
     path('dashboard/', dashboard, name = 'dashboard'),
     path('dashboard/addclient', registerClient, name = 'registerclient'),
+    path('b/', ho),
     
 ]
