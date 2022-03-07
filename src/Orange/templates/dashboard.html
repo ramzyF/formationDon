@@ -2,7 +2,6 @@
  {% load static %}
 
 
-
  {% block content %}
  <link rel="stylesheet" href="{% static '/css/dashb.css' %}">
  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -50,7 +49,7 @@
           <tr>
               <td>{{client.num_cni}}</td>
               <td>{{client.name}}</td>
-              <td>{{client.city}}</td>
+              <td>{{city}}</td>
           </tr>
           {% endfor %}
         </tbody>
