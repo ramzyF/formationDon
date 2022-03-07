@@ -21,7 +21,7 @@
      <a href="{% url 'home' %}">Accueil</a><br><br>
      <a href="{% url 'registerclient' %}">Ajouter un client</a><br><br>
      {% if clients  and rank %}
-     <span class ="rank-gain">Rang: {{rank}} </span><br><br>
+     <span class ="rank-gain">Rang: {{rank}}/{{nbAgent}} </span><br><br>
      <span class ="rank-gain">Gain: {{gain}} FCFA </span><br><br>
      {% endif %}
      <a href="{% url 'signout' %}">Déconnexion</a><br><br>
@@ -35,7 +35,7 @@
 
    <div>
       {% if clients %}
-        <h4>Clients que vous avez enregistré.</h4><br>
+        <h4>Vous avez enregistré {{nbr}} client(s) .</h4><br>
         <table class="table table-hover table-dark">
         <thead>
           <tr>

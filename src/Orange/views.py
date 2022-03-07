@@ -145,7 +145,8 @@ def dashboard(request):
       'clients': clients,
       'rank':rank,
       'gain': gain,
-      'nbr': 0
+      'nbr': len(clients),
+      'nbAgent': len(users)
     }
   return render(request, 'dashboard.html', context)
 
