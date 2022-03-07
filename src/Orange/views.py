@@ -144,7 +144,8 @@ def dashboard(request):
     context = {
       'clients': clients,
       'rank':rank,
-      'gain': gain
+      'gain': gain,
+      'nbr': 0
     }
   return render(request, 'dashboard.html', context)
 
