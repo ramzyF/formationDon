@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static '/css/style.css' %}">
+<div class="main-container">
+<form method="POST" action="">
+  {% csrf_token %}
+    <span class="title">Connexion</span>
+    <div class="text-field">
+        {{form.email}}
+        {{form.email.label_tag}}
+    </div>
+    <div class="text-field">
+        {{form.password1}}
+        {{form.password1.label_tag}}
+    </div>
+      <input type="submit" value="Se connecter">
+      <div class="login-link">
+      <span>Vous n'avez pas de compte? <a href="#">Créer un compte</a></span>
+</div>
+     <!--  <p>Already have an account? <a href="{% url 'signin' %}">Login</a></p> -->
+  </form>
+</div>
+{% if message %} 
+<div class="error-message">
+          <li><strong>{{ message|escape }}</strong></li>
+</div>
+{% endif %}
+{% endblock %}

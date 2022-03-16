@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from Orange.views import *
+from indiceMasse.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -23,8 +23,5 @@ urlpatterns = [
     path('signup', signup, name = 'signup'),
     path('signin', signin, name = 'signin'),
     path('signout', signout, name = 'signout'),
-    path('dashboard/', dashboard, name = 'dashboard'),
-    path('dashboard/addclient', registerClient, name = 'registerclient'),
-    path('b/', ho),
     
 ]
