@@ -1,35 +1,26 @@
-
+{% load static %}
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Agent Orange</title>
+  <link rel="stylesheet" href="{% static '/css/style.css' %}">
+  <link rel="stylesheet" href="{% static '/css/general.css' %}">
+  <title>IMC</title>
 </head>
 <body>
-  <style>
-    .home-container{
-        display: grid;
-        grid-template-columns: 1fr 3fr;
-    }
-    #logo {
-        font-size: 30px;
-        color:orange
-    }
-    #logo a{
-      text-decoration: none;
-      text-transform: uppercase;
-      transition: color .5s;
-    }
-    #logo a:visited, #logo a:link{
-      color: inherit;
-    }
-    #logo a:hover{
-      color: rgb(163, 118, 33)
-    }
-</style>
+  <div class="overlay"></div>
+ 
+  {% block header%}
+
+  {%endblock%}
+
+  {% block nav %}
+
+
+  {% endblock %}
+
   {% block content %}
 
 

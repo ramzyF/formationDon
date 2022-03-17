@@ -1,11 +1,13 @@
+<div class="side-bar">
+  <span><a href="{% url 'home' %}">Accueil</a></span>
+  {% if request.user.is_authenticated %}
+    <span><a href="{% url 'calc' %}">Calculer mon IMC</a></span>      
+    <span><a href="{% url 'signout' %}">Deconnexion</a></span>
+  {% else %}
 
-<h4><a href="{% url 'dashboard' %}">Tableau de board</a></h4>
-{% if request.user.is_authenticated %}
+  <span><a href="{% url 'signup' %}">S'enregistrer</a></span>
+  <span><a href="{% url 'signin' %}">Connexion</a></span>
 
-<h4><a href="{% url 'signout' %}">Deconnexion</a></h4>
-{% else %}
+  {% endif %}
 
-<h4><a href="{% url 'signup' %}">S'enregistrer</a></h4>
-<h4><a href="{% url 'signin' %}">Se connecter</a></h4>
-
-{% endif %}
+</div> 

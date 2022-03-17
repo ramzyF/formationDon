@@ -1,0 +1,82 @@
+*{
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+body{
+  background: url(./bg.png) rgba(0,0, 0, .5);
+  background-size: cover;
+}
+body .overlay{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: .8;
+  z-index: 0;
+}
+
+div.side-bar{
+  position:absolute;
+  top: 100px;
+  left: 0;
+  bottom:400px;
+  
+  padding: 20px 5px 0px 5px;
+
+}
+
+div.side-bar span{
+  display: block;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #2691d9;
+  opacity: 1;
+}
+
+div.side-bar span{
+  padding-top: 10px;
+}
+
+div.side-bar span a{
+  font-size: 1.2em;
+  font-weight: 800;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  color:white;
+  text-decoration: none;
+}
+
+
+  .login-link{
+    margin: 25px 0;
+    text-align: center;
+    font-size: 16px;
+    color: #ffffff;
+  } 
+
+  .login-link a{
+    color: #2691d9;
+    text-decoration: none;
+  }
+
+  .login-link a:hover{
+    text-decoration: underline;
+  }
+
+   /* fin */
+.error-message{
+  position: absolute;
+  top: 300px;
+  left: 0px;
+  background: white;
+  color: red;
+  width: 450px;
+  padding: 10px 10px 10px 5px;
+  margin: 10px 10px;
+  border-radius: 10px;
+}
+
+.error-message li{
+  list-style-position: inside;
+}

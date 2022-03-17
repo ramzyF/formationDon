@@ -1,15 +1,21 @@
 {% extends 'base.html' %}
-{% load static %}
+
+{% block nav %}
+
+{% include 'navbar.html' %}
+
+{% endblock %}
 
 {% block content %}
-<link rel="stylesheet" href="{% static 'css/style.css' %}">
+
 <div class="main-container">
+    <div class="form-overlay"></div>
     <form action="" method="POST">
       {% csrf_token %}
       <span class="title-register">Créer un compte</span>
       <div class="text-field">
-        {{patient_form.name}}
-        {{patient_form.name.label_tag}}
+        {{form.name}}
+        {{form.name.label_tag}}
       </div>
 
       <div class="text-field">
@@ -18,24 +24,15 @@
       </div>
 
       <div class="text-field">
-        {{patient_form.tel_number}}
-        {{patient_form.tel_number.label_tag}}
+        {{form.tel_number}}
+        {{form.tel_number.label_tag}}
       </div>
 
       <div class="text-field">
-        {{patient_form.city}}
-        {{patient_form.city.label_tag}}
+        {{form.city}}
+        {{form.city.label_tag}}
       </div>
 
-      <div class="text-field">
-        <input type="text" name="age" id="">
-        <label for="age">Age</label>
-      </div>
-
-      <div class="text-field">
-        <input type="text" name="taille" id="">
-        <label for="taille">Taille</label>
-      </div>
       
       <div class="text-field">
         {{form.password1}}
@@ -43,17 +40,19 @@
       </div>
 
       <div class="text-field">
-        <{{form.password2}}
+        {{form.password2}}
         {{form.password2.label_tag}}
       </div>
       <input type="submit" value="S'enregistrer">
       <div class="login-link">
-        <span>Vous avez déjà un compte? <a href="#">Connectez-vous</a></span>
+        <span>Vous avez déjà un compte? <a href="{% url 'signin' %}">Connectez-vous</a></span>
       </div>
   </form>
   </div>
 
-{% if form.errors or patient_form.errors %}
+
+{% if form.errors%}
+
 <div class="error-message">
   {% if form.errors %}
     {% for field in form %}
@@ -63,16 +62,8 @@
       {% endfor %}
     {% endfor %}
   {% endif %}
-  {% if patient_form.errors %}
-    {% for field in patient_form %}
-      {% for error in field.errors %} 
-          <li><strong>{{ error|escape }}</strong></li>
-  
-      {% endfor %}
-    {% endfor %}
-  {% endif %}
 </div>
 {% endif %}
 
+
 {% endblock %}
- 

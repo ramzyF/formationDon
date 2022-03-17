@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class OrangeConfig(AppConfig):
+class IndicemasseConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'Orange'
+    name = 'indiceMasse'

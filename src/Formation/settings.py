@@ -27,7 +27,13 @@ SECRET_KEY = 'django-insecure-goy^1k1)6!d$r!4&nv78bqa86b&b7fku^@%8fwmv29z7obeui4
 DEBUG = True
 
 ALLOWED_HOSTS = []
+from .mail import *
 
+EMAIL_USE_TLS = EMAIL_USE_TLS
+EMAIL_HOST = EMAIL_HOST
+EMAIL_HOST_USER = EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = EMAIL_HOST_PASSWORD
+EMAIL_POST = EMAIL_POST
 
 # Application definition
 
@@ -71,6 +77,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Formation.wsgi.application'
 
+
+AUTH_USER_MODEL = "indiceMasse.Patient"
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
